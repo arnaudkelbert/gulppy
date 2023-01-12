@@ -4,8 +4,8 @@ Test for the Gulppy module loader core module
 """
 import unittest
 import sys
-from core import glpp_module_loader
-from config import GLPP_LOGGER, init_logger
+from gulppy.core import glpp_module_loader
+from gulppy.config import GLPP_LOGGER, init_logger
 init_logger()
 
 

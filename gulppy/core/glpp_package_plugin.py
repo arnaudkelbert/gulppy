@@ -3,7 +3,7 @@
 Gulppy Package Plugin class definition
 -- NOT YET AVAILABLE --
 """
-from core.glpp_abstract_plugin import GlppAbstractPlugin
+from gulppy.core.glpp_abstract_plugin import GlppAbstractPlugin
 
 
 class GlppPackagePlugin(GlppAbstractPlugin):

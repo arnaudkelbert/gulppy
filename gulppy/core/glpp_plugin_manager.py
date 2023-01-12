@@ -5,11 +5,11 @@ Gulppy Plugin manager definition
 import pandas as pd
 from typing import NoReturn, Dict
 from enum import Enum
-from core.glpp_abstract_plugin import GlppPluginLoadStatus, GlppAbstractPlugin
-from core.glpp_plugin_repository import GlppPluginRepository
-from core.glpp_plugin_factory import MutableModeEnum
-from core import glpp_exceptions
-from config import GLPP_LOGGER
+from gulppy.core.glpp_abstract_plugin import GlppPluginLoadStatus, GlppAbstractPlugin
+from gulppy.core.glpp_plugin_repository import GlppPluginRepository
+from gulppy.core.glpp_plugin_factory import MutableModeEnum
+from gulppy.core import glpp_exceptions
+from gulppy.config import GLPP_LOGGER
 
 
 class GlppPluginDuplicatePolicy(Enum):

@@ -6,10 +6,10 @@ from pathlib import Path
 from typing import Generator
 from contextlib import contextmanager
 from enum import Enum
-from core import glpp_exceptions
-from core.glpp_abstract_plugin import GlppAbstractPlugin
-from core.glpp_module_plugin import GlppModulePlugin
-from core.glpp_package_plugin import GlppPackagePlugin
+from gulppy.core import glpp_exceptions
+from gulppy.core.glpp_abstract_plugin import GlppAbstractPlugin
+from gulppy.core.glpp_module_plugin import GlppModulePlugin
+from gulppy.core.glpp_package_plugin import GlppPackagePlugin
 
 # Dictionnary to register Gulppy plugin classes
 GLPP_PLUGIN_CLASSES = {}

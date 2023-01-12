@@ -9,8 +9,8 @@ from typing import NoReturn
 import types
 import pandas as pd
 from enum import Enum
-from core import glpp_exceptions
-from config import GLPP_LOGGER
+from gulppy.core import glpp_exceptions
+from gulppy.config import GLPP_LOGGER
 
 DESCR_FILENAME = 'descr.yaml'
 

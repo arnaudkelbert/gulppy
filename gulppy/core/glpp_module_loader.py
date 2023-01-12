@@ -9,8 +9,8 @@ from pathlib import Path
 from typing import Generator, List, Tuple
 import types
 from contextlib import contextmanager
-from core import glpp_exceptions
-from config import GLPP_LOGGER
+from gulppy.core import glpp_exceptions
+from gulppy.config import GLPP_LOGGER
 
 
 @contextmanager

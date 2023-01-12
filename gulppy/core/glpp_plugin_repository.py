@@ -5,10 +5,10 @@ Gulppy Plugin repository definition
 import pathlib
 import pandas as pd
 from typing import NoReturn, List
-from core.glpp_abstract_plugin import GlppAbstractPlugin, DESCR_FILENAME, GlppPluginLoadStatus
-from core.glpp_plugin_factory import create_plugin, MutableModeEnum, mutable_context
-from core import glpp_exceptions
-from config import GLPP_LOGGER
+from gulppy.core.glpp_abstract_plugin import GlppAbstractPlugin, DESCR_FILENAME, GlppPluginLoadStatus
+from gulppy.core.glpp_plugin_factory import create_plugin, MutableModeEnum, mutable_context
+from gulppy.core import glpp_exceptions
+from gulppy.config import GLPP_LOGGER
 
 
 class GlppPluginRepository(object):

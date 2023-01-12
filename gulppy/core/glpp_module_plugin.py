@@ -5,9 +5,9 @@ Gulppy Module Plugin class definition
 from pathlib import Path
 from typing import NoReturn, List, Dict, Tuple
 import types
-from core.glpp_abstract_plugin import GlppAbstractPlugin, safe_python_path, GlppPluginLoadStatus
-from core.glpp_module_loader import load_module
-from config import GLPP_LOGGER
+from gulppy.core.glpp_abstract_plugin import GlppAbstractPlugin, safe_python_path, GlppPluginLoadStatus
+from gulppy.core.glpp_module_loader import load_module
+from gulppy.config import GLPP_LOGGER
 
 
 class GlppModulePlugin(GlppAbstractPlugin):

@@ -5,9 +5,9 @@ Test for the Gulppy plugin manager core class
 import unittest
 import sys
 import traceback
-from core.glpp_plugin_factory import MutableModeEnum
-from core.glpp_plugin_manager import GlppPluginManager, GlppPluginDuplicatePolicy
-from config import GLPP_LOGGER, init_logger
+from gulppy.core.glpp_plugin_factory import MutableModeEnum
+from gulppy.core.glpp_plugin_manager import GlppPluginManager, GlppPluginDuplicatePolicy
+from gulppy.config import GLPP_LOGGER, init_logger
 init_logger()
 
 
