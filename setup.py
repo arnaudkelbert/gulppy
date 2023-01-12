@@ -17,5 +17,6 @@ setuptools.setup(
     },
     license='BSD-3-Clause',
     packages=['gulppy', 'gulppy.core'],
+    package_data={'gulppy': ['core/*json']},
     install_requires=['pyyaml', 'pandas'],
 )
