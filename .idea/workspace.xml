@@ -2,54 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3f26f34c-f88d-4659-a434-6357279b9f19" name="Changes" comment="change file organization (bis)">
-      <change afterPath="$PROJECT_DIR$/testing_data/normal/repo_3/plugin_2/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testing_data/normal/repo_3/plugin_2/my_plugin_b/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/core/glpp_abstract_plugin.py" beforeDir="false" afterPath="$PROJECT_DIR$/gulppy/core/glpp_abstract_plugin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/core/glpp_module_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/gulppy/core/glpp_module_loader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/core/glpp_module_plugin.py" beforeDir="false" afterPath="$PROJECT_DIR$/gulppy/core/glpp_module_plugin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/core/glpp_package_plugin.py" beforeDir="false" afterPath="$PROJECT_DIR$/gulppy/core/glpp_package_plugin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/core/glpp_plugin_factory.py" beforeDir="false" afterPath="$PROJECT_DIR$/gulppy/core/glpp_plugin_factory.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/core/glpp_plugin_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/gulppy/core/glpp_plugin_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/core/glpp_plugin_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/gulppy/core/glpp_plugin_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing/test_module_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing/test_module_loader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing/test_module_plugin.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing/test_module_plugin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing/test_plugin.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing/test_plugin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing/test_plugin_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing/test_plugin_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing/test_plugin_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing/test_plugin_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/anomaly/repo_1/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/anomaly/repo_1/plugin_1/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/anomaly/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/anomaly/repo_1/plugin_1/descr.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/anomaly/repo_1/plugin_1/descr.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/anomaly/repo_1/plugin_1/my_plugin/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/anomaly/repo_1/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/anomaly/repo_1/plugin_1/my_plugin/plugin_1_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/anomaly/repo_1/plugin_1/my_plugin/plugin_1_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/anomaly/repo_1/plugin_2/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/anomaly/repo_1/plugin_1/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/anomaly/repo_1/plugin_2/descr.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/anomaly/repo_1/plugin_2/descr.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/anomaly/repo_1/plugin_2/my_plugin_b/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/anomaly/repo_1/plugin_1/my_plugin/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/anomaly/repo_1/plugin_2/my_plugin_b/plugin_1_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/anomaly/repo_1/plugin_2/my_plugin_b/plugin_1_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/anomaly/repo_1/plugin_2/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_1/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/anomaly/repo_1/plugin_2/my_plugin_b/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_1/plugin_1/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_1/plugin_1/descr.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/repo_1/plugin_1/descr.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_1/plugin_1/my_plugin/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/repo_1/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_1/plugin_1/my_plugin/plugin_1_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/repo_1/plugin_1/my_plugin/plugin_1_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_1/plugin_2/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/repo_1/plugin_1/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_1/plugin_2/descr.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/repo_1/plugin_2/descr.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_1/plugin_2/my_plugin/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/repo_1/plugin_1/my_plugin/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_1/plugin_2/my_plugin/plugin_1_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/repo_1/plugin_2/my_plugin/plugin_1_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_2/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/repo_1/plugin_2/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_2/plugin_1/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/repo_1/plugin_2/my_plugin/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_2/plugin_1/descr.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/repo_2/plugin_1/descr.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_2/plugin_1/my_plugin/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/repo_2/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_2/plugin_1/my_plugin/plugin_1_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/repo_2/plugin_1/my_plugin/plugin_1_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_3/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/repo_2/plugin_1/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_3/plugin_1/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/repo_2/plugin_1/my_plugin/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_3/plugin_1/descr.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/repo_3/plugin_1/descr.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_3/plugin_1/my_plugin/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/repo_3/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_3/plugin_1/my_plugin/plugin_1_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/repo_3/plugin_1/my_plugin/plugin_1_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_3/plugin_2/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/repo_3/plugin_1/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_3/plugin_2/descr.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/repo_3/plugin_2/descr.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_3/plugin_2/my_plugin_b/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/repo_3/plugin_1/my_plugin/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulppy/testing_data/normal/repo_3/plugin_2/my_plugin_b/plugin_1_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing_data/normal/repo_3/plugin_2/my_plugin_b/plugin_1_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -239,7 +193,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673558881320</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="change file organization (bis)">
+      <created>1673559268932</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1673559268932</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
