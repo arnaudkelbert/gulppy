@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3f26f34c-f88d-4659-a434-6357279b9f19" name="Changes" comment="change file organization (bis)">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="3f26f34c-f88d-4659-a434-6357279b9f19" name="Changes" comment="change setup.py">
       <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -200,7 +199,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673559268932</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="change setup.py">
+      <created>1673560284728</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1673560284728</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -218,6 +224,7 @@
     <MESSAGE value="initial true commit" />
     <MESSAGE value="change file organization" />
     <MESSAGE value="change file organization (bis)" />
-    <option name="LAST_COMMIT_MESSAGE" value="change file organization (bis)" />
+    <MESSAGE value="change setup.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="change setup.py" />
   </component>
 </project>

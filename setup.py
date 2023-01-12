@@ -16,6 +16,6 @@ setuptools.setup(
         "Bug Tracker": "https://github.com/arnaudkelbert/gulppy/issues"
     },
     license='BSD-3-Clause',
-    packages=setuptools.find_packages(include=['gulppy', 'gulppy.*']),
+    packages=['gulppy', 'gulppy.core'],
     install_requires=['pyyaml', 'pandas'],
 )
