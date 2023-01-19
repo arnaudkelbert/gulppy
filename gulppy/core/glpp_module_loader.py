@@ -41,10 +41,10 @@ def sys_path_context(dir_path: str or List[str],
     GLPP_LOGGER.debug('Context | sys.path and sys.modules : inserting {} to sys.path'.format(dir_path))
 
     # save the current states
-    old_path = sys.path
-    old_modules = sys.modules
-    sys.modules = old_modules.copy()
-    sys.path = sys.path[:]
+    old_path = sys.path.copy()
+    old_modules = sys.modules.copy()
+    # Fix issue #1 - KeyError can occur when loading a module
+    #sys.modules = old_modules.copy()
 
     for cpath in dir_path[::-1]:
         sys.path.insert(0, os.fspath(Path(cpath).resolve()))
@@ -68,7 +68,12 @@ def sys_path_context(dir_path: str or List[str],
         if immutable:
             GLPP_LOGGER.debug('Context | sys.path and sys.modules : restore previous state'.format(dir_path))
             sys.path = old_path
-            sys.modules = old_modules
+            # Fix issue #1 - KeyError can occur when loading a module
+            for k, v in old_modules.items():
+                sys.modules[k] = v
+            to_del = [k for k in sys.modules if k not in old_modules]
+            for k in to_del:
+                del sys.modules[k]
 
 
 def is_sequence(iterable: List or str) -> bool:
