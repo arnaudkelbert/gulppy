@@ -29,7 +29,7 @@ def sys_path_context(dir_path: str or List[str],
     at module execution time.
 
     :param dir_path: list of paths to add to sys.path
-    :param modules_changes: list to serve as a buffer to store the changes that have occured to sys.modules
+    :param modules_changes: list to serve as a buffer to store the changes that have occurred to sys.modules
     :param immutable: boolean flag to restore sys.path and sys.modules states at exit
     :return:
     """
@@ -44,7 +44,7 @@ def sys_path_context(dir_path: str or List[str],
     old_path = sys.path.copy()
     old_modules = sys.modules.copy()
     # Fix issue #1 - KeyError can occur when loading a module
-    #sys.modules = old_modules.copy()
+    # sys.modules = old_modules.copy()
 
     for cpath in dir_path[::-1]:
         sys.path.insert(0, os.fspath(Path(cpath).resolve()))
@@ -132,7 +132,7 @@ def load_module(module_fullname: str,
         old_ = module_path
         module_path = Path(module_path).resolve()
         GLPP_LOGGER.warning('Automatic conversion from relative to absolute path : {} -> {}.\n'
-                        'Please provide absolute path'.format(old_, module_path))
+                            'Please provide absolute path'.format(old_, module_path))
 
     # also check if absolute path are given for module_path
     # first test if module_root_path is a single string or a sequence of paths
@@ -144,7 +144,7 @@ def load_module(module_fullname: str,
             old_ = cpath
             cpath = Path(cpath).resolve()
             GLPP_LOGGER.warning('Automatic conversion from relative to absolute path : {} -> {}.\n'
-                            'Please provide absolute path'.format(old_, cpath))
+                                'Please provide absolute path'.format(old_, cpath))
         module_root_path_.append(cpath)
     module_root_path = module_root_path_
 
@@ -164,8 +164,8 @@ def load_module(module_fullname: str,
                 return sys.modules[module_fullname], []
         else:
             if not Path(module_path).resolve().samefile(Path(sys.modules[module_fullname].__file__).resolve()):
-                GLPP_LOGGER.warning('An existing module with the same name but pointing to an other file already exists in '
-                                'sys.modules for module {}'.format(sys.modules[module_fullname]))
+                GLPP_LOGGER.warning('An existing module with the same name but pointing to an other file already exists'
+                                    ' in sys.modules for module {}'.format(sys.modules[module_fullname]))
 
     # load module in a context in order to manage mutable or immutable sys.path and sys.module
     # if immutable is True : sys.path and sys.module will be restored to their previous state and no reference of the
