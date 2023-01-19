@@ -33,12 +33,12 @@ def sys_path_context(dir_path: str or List[str],
     :param immutable: boolean flag to restore sys.path and sys.modules states at exit
     :return:
     """
-    GLPP_LOGGER.debug('Context | sys.path and sys.modules : inserting {} to sys.path'.format(dir_path))
     if not is_sequence(dir_path):
         dir_path = [dir_path]
     # Extend dir_path to add to sys.path with config.GLPP_SYS_PATH
     # This mechanism can be used when integrating gulppy.
     dir_path.extend(GLPP_SYS_PATH)
+    GLPP_LOGGER.debug('Context | sys.path and sys.modules : inserting {} to sys.path'.format(dir_path))
 
     # save the current states
     old_path = sys.path
