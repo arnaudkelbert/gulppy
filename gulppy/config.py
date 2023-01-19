@@ -8,12 +8,19 @@ import sys
 import inspect
 GULPPY_ROOT_PATH = os.path.normpath(os.path.join(os.path.abspath(inspect.stack()[0][1]), '..'))
 
+# Set a variable to store path to implicitly add at module loading
+# @see glpp_module_loader.sys_path_context
+GLPP_SYS_PATH = []
+
+def register_path(path: str):
+    GLPP_SYS_PATH.append(path)
+
+
 # Set gulppy logger with a NullHandler
 # In order to show something you will have to init the logger first, for instance
 # by calling the above defined init_logger function
 GLPP_LOGGER = logging.getLogger('gulppy')
 GLPP_LOGGER.addHandler(logging.NullHandler())
-
 
 def init_logger():
     """
