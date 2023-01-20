@@ -11,7 +11,6 @@ from gulppy.core.glpp_module_loader import load_module
 from gulppy.config import GLPP_LOGGER
 
 
-
 @GlppPluginFactory.register('module')
 class GlppModulePlugin(GlppAbstractPlugin):
     """
@@ -75,4 +74,3 @@ class GlppModulePlugin(GlppAbstractPlugin):
             self._indirect_modules.extend(context_modules)
         self._i_modules = {k: v for k, v in self._indirect_modules if k not in self._modules}
         self._load_status = GlppPluginLoadStatus.LOADED
-
