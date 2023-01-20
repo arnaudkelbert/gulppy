@@ -3,30 +3,12 @@
 Gulppy Plugin factory
 """
 from pathlib import Path
-from typing import Generator
+from typing import Generator, Callable
 from contextlib import contextmanager
 from enum import Enum
+from gulppy.config import GLPP_LOGGER
 from gulppy.core import glpp_exceptions
 from gulppy.core.glpp_abstract_plugin import GlppAbstractPlugin
-from gulppy.core.glpp_module_plugin import GlppModulePlugin
-from gulppy.core.glpp_package_plugin import GlppPackagePlugin
-
-# Dictionnary to register Gulppy plugin classes
-GLPP_PLUGIN_CLASSES = {}
-
-
-def register_plugin_class(cls):
-    """
-    Register the plugin class in the module global GLPP_PLUGIN_CLASSES dictionnary
-    :param cls:
-    :return:
-    """
-    GLPP_PLUGIN_CLASSES[cls.PLUGIN_MODE] = cls
-
-
-# Register the available classes
-register_plugin_class(GlppModulePlugin)
-register_plugin_class(GlppPackagePlugin)
 
 
 class MutableModeEnum(Enum):
@@ -69,22 +51,45 @@ def mutable_context(plugin_cls: GlppAbstractPlugin,
     plugin_cls.IMMUTABLE_SYS_PATH_MODULE = mutable_default_value
 
 
-# A plugin factory method
-def create_plugin(plugin_desc: str or Path,
-                  load: bool = True,
-                  mutable_mode: MutableModeEnum = MutableModeEnum.DEFAULT) -> GlppAbstractPlugin:
-    """
-    A function to create a plugin from its description file
-    :param plugin_desc: plugin description file
-    :param load: boolean flag to load modules at creation
-    :param mutable_mode: mutable mode to use for the plugin load
-    :return: a plugin instance
-    """
-    plugin_mode = GlppAbstractPlugin.get_plugin_mode(plugin_desc)
-    try:
-        plugin_cls = GLPP_PLUGIN_CLASSES[plugin_mode]
-    except KeyError:
-        raise glpp_exceptions.UnknownPluginMode(plugin_mode)
-    else:
-        with mutable_context(plugin_cls=plugin_cls, mutable_mode=mutable_mode):
-            return plugin_cls(plugin_desc=plugin_desc, load=load)
+class GlppPluginFactory(object):
+    GLPP_PLUGIN_REGISTRY = {}
+    # A plugin factory method
+    @classmethod
+    def create_plugin(cls,
+                      plugin_desc: str or Path,
+                      load: bool = True,
+                      mutable_mode: MutableModeEnum = MutableModeEnum.DEFAULT) -> GlppAbstractPlugin:
+        """
+        A function to create a plugin from its description file
+        :param plugin_desc: plugin description file
+        :param load: boolean flag to load modules at creation
+        :param mutable_mode: mutable mode to use for the plugin load
+        :return: a plugin instance
+        """
+        plugin_mode = GlppAbstractPlugin.get_plugin_mode(plugin_desc)
+        try:
+            plugin_cls = cls.GLPP_PLUGIN_REGISTRY[plugin_mode]
+        except KeyError:
+            raise glpp_exceptions.UnknownPluginMode(plugin_mode)
+        else:
+            with mutable_context(plugin_cls=plugin_cls, mutable_mode=mutable_mode):
+                return plugin_cls(plugin_desc=plugin_desc, load=load)
+
+
+    @classmethod
+    def register(cls, name: str) -> Callable:
+        """
+        Class method to register a plugin class in the factory
+        This is aimed to be used as a decorator of plugin classes.
+
+        :param name: name of the plugin class
+        :return: the plugin class itself
+        """
+        def inner_wrapper(wrapped_class: GlppAbstractPlugin) -> Callable:
+            if name in cls.GLPP_PLUGIN_REGISTRY:
+                GLPP_LOGGER.warning("Plugin class {} is already registered in the factory. "
+                                    "It will be overwritten.".format(name))
+            cls.GLPP_PLUGIN_REGISTRY[name] = wrapped_class
+            return wrapped_class
+
+        return inner_wrapper

@@ -6,7 +6,7 @@ import pathlib
 import pandas as pd
 from typing import NoReturn, List
 from gulppy.core.glpp_abstract_plugin import GlppAbstractPlugin, DESCR_FILENAME, GlppPluginLoadStatus
-from gulppy.core.glpp_plugin_factory import create_plugin, MutableModeEnum, mutable_context
+from gulppy.core.glpp_plugin_factory import GlppPluginFactory, MutableModeEnum, mutable_context
 from gulppy.core import glpp_exceptions
 from gulppy.config import GLPP_LOGGER
 
@@ -70,9 +70,9 @@ class GlppPluginRepository(object):
                 # Here we create the plugin without loading it
                 # No need to specify the mutable_mode parameters as it has no effective effect (even if the context
                 # is changed in the create_plugin method)
-                cplugin = create_plugin(plugin_desc=desc_file,
-                                        load=False,
-                                        )
+                cplugin = GlppPluginFactory.create_plugin(plugin_desc=desc_file,
+                                                          load=False,
+                                                          )
             except:
                 # TODO : manage exception we want to pass...
                 raise

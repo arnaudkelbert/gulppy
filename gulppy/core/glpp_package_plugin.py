@@ -4,15 +4,16 @@ Gulppy Package Plugin class definition
 -- NOT YET AVAILABLE --
 """
 from gulppy.core.glpp_abstract_plugin import GlppAbstractPlugin
+from gulppy.core.glpp_plugin_factory import GlppPluginFactory
 
 
+@GlppPluginFactory.register('package')
 class GlppPackagePlugin(GlppAbstractPlugin):
     """
     Package plugin class implementation
 
     This implementation automatically import recursively all modules in the package tree.
     """
-    PLUGIN_MODE = 'package'
     IMMUTABLE_SYS_PATH_MODULE = True
 
     def __init__(self,

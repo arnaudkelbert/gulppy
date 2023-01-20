@@ -6,10 +6,13 @@ from pathlib import Path
 from typing import NoReturn, List, Dict, Tuple
 import types
 from gulppy.core.glpp_abstract_plugin import GlppAbstractPlugin, safe_python_path, GlppPluginLoadStatus
+from gulppy.core.glpp_plugin_factory import GlppPluginFactory
 from gulppy.core.glpp_module_loader import load_module
 from gulppy.config import GLPP_LOGGER
 
 
+
+@GlppPluginFactory.register('module')
 class GlppModulePlugin(GlppAbstractPlugin):
     """
     Module plugin class implementation
@@ -18,7 +21,6 @@ class GlppModulePlugin(GlppAbstractPlugin):
     Therefore it does not import python modules that may be present in the package and not somehow used by
     the declared modules.
     """
-    PLUGIN_MODE = 'module'
     IMMUTABLE_SYS_PATH_MODULE = True
 
     def __init__(self,
@@ -73,3 +75,4 @@ class GlppModulePlugin(GlppAbstractPlugin):
             self._indirect_modules.extend(context_modules)
         self._i_modules = {k: v for k, v in self._indirect_modules if k not in self._modules}
         self._load_status = GlppPluginLoadStatus.LOADED
+
