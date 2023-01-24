@@ -52,7 +52,9 @@ class GlppModulePlugin(GlppAbstractPlugin):
         module, context_modules = load_module(module_fullname=module_name,
                                               module_path=file,
                                               module_root_path=self.python_path,
-                                              immutable=self.__class__.IMMUTABLE_SYS_PATH_MODULE)
+                                              immutable=self.__class__.IMMUTABLE_SYS_PATH_MODULE,
+                                              callback_init=self.sys_context_callback_init,
+                                              callback_terminate=self.sys_context_callback_terminate)
         return module, context_modules
 
     def _load_all_modules(self, main_modules_desc: Dict[str, str]) -> NoReturn:

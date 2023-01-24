@@ -12,4 +12,10 @@ plugin_main_modules:
     my_plugin.plugin_1_main : my_plugin/plugin_1_main.py
 python_path:
   - "." # It is a good practice to add plugin root directory for module loading
+# (optional hacks) plugin hacks for special case scenario
+plugin_hacks:
+    # defines a python script that will be executed during the load module sequence in the sys_context
+    # See gulppy.core.glpp_module_loader.py
+    sys_context_callback_init: "@PLUGIN_ROOT@/hacks/sys_context_callback_init.py"
+    sys_context_callback_terminate: "@PLUGIN_ROOT@/hacks/sys_context_callback_terminate.py"
 ...

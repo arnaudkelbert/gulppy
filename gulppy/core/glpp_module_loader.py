@@ -6,23 +6,59 @@ from importlib import util as importlib_util
 import sys
 import os
 from pathlib import Path
-from typing import Generator, List, Tuple
+from typing import Generator, List, Tuple, Callable, Dict
 import types
 from contextlib import contextmanager
 from gulppy.core import glpp_exceptions
 from gulppy.config import GLPP_LOGGER, GLPP_SYS_PATH
 
 
+def sys_context_callback_init(**kwargs):
+    """
+    A hack to be executed after the code executed in the sys_context
+    This method is aimed to be redefined for special cases by a plugin
+
+    :param modules_changes: list to serve as a buffer to store the changes that have occurred to sys.modules
+    :param immutable: boolean flag to restore sys.path and sys.modules states at exit
+    """
+    for cpath in kwargs["dir_path"][::-1]:
+        sys.path.insert(0, os.fspath(Path(cpath).resolve()))
+
+
+def sys_context_callback_terminate(**kwargs):
+    """
+    A hack to be executed after the code executed in the sys_context
+    This method is aimed to be redefined for special cases by a plugin
+
+    :param modules_changes: list to serve as a buffer to store the changes that have occurred to sys.modules
+    :param immutable: boolean flag to restore sys.path and sys.modules states at exit
+    """
+    # restore previous states
+    if kwargs["immutable"]:
+        GLPP_LOGGER.debug('Context | sys.path and sys.modules : restore previous state')
+        sys.path = kwargs["old_path"]
+        # Fix issue #1 - KeyError can occur when loading a module
+        for k, v in kwargs["old_modules"].items():
+            sys.modules[k] = v
+        to_del = [k for k in sys.modules if k not in kwargs["old_modules"]]
+        for k in to_del:
+            del sys.modules[k]
+
+
 @contextmanager
-def sys_path_context(dir_path: str or List[str],
+def sys_context(dir_path: str or List[str],
                      modules_changes: List,
-                     immutable: bool = True) -> Generator[str, None, None]:
+                     immutable: bool = True,
+                     callback_init: Callable = sys_context_callback_init,
+                     callback_init_kwargs: Dict or None = None,
+                     callback_terminate: Callable = sys_context_callback_terminate,
+                     callback_terminate_kwargs: Dict or None = None) -> Generator[str, None, None]:
     """
     Context for sys.path and sys.modules management used while dynamic loading python modules.
     If immutable is True the state at call will be restored before exiting.
     Each path in dir_path is inserted at the beginning of sys.path. The paths will be inserted in reversing order
     so that the first path in list will be top priority.
-    Regardless of the immutable argument value, the modules changes that occurred temporary or permanently are saved in
+    Regardless of the immutable argument value, the modules changes that occurred temporary or permanently are saved inm
     the modules_changes buffer.
 
     Note : loading a module alters the sys.modules dictionary by adding entries for each module imported
@@ -31,6 +67,10 @@ def sys_path_context(dir_path: str or List[str],
     :param dir_path: list of paths to add to sys.path
     :param modules_changes: list to serve as a buffer to store the changes that have occurred to sys.modules
     :param immutable: boolean flag to restore sys.path and sys.modules states at exit
+    :callback_init: callback function to be called right before the yield instruction
+    :callback_init_kwargs: keyword args dict for the callback_init call
+    :callback_terminate: callback function to be called after the yield instruction
+    :callback_terminate_kwargs: keyword args dict for the callback_init call
     :return:
     """
     if not is_sequence(dir_path):
@@ -46,8 +86,15 @@ def sys_path_context(dir_path: str or List[str],
     # Fix issue #1 - KeyError can occur when loading a module
     # sys.modules = old_modules.copy()
 
-    for cpath in dir_path[::-1]:
-        sys.path.insert(0, os.fspath(Path(cpath).resolve()))
+    GLPP_LOGGER.debug('Calling callback init function')
+    if callback_init_kwargs is None:
+        callback_init_kwargs = {}
+    callback_init_kwargs.update({"dir_path": dir_path,
+                                 "immutable": immutable,
+                                 "old_path": old_path,
+                                 "old_modules": old_modules,
+                                 "module_changes": modules_changes})
+    callback_init(**callback_init_kwargs)
 
     try:
         # Code will be played here
@@ -64,16 +111,14 @@ def sys_path_context(dir_path: str or List[str],
             except AttributeError:
                 pass
 
-        # restore previous states
-        if immutable:
-            GLPP_LOGGER.debug('Context | sys.path and sys.modules : restore previous state'.format(dir_path))
-            sys.path = old_path
-            # Fix issue #1 - KeyError can occur when loading a module
-            for k, v in old_modules.items():
-                sys.modules[k] = v
-            to_del = [k for k in sys.modules if k not in old_modules]
-            for k in to_del:
-                del sys.modules[k]
+        GLPP_LOGGER.debug('Calling callback terminate function')
+        if callback_terminate_kwargs is None:
+            callback_terminate_kwargs = {}
+        callback_terminate_kwargs.update({"immutable": immutable,
+                                          "old_path": old_path,
+                                          "old_modules": old_modules,
+                                          "module_changes": modules_changes})
+        callback_terminate(**callback_terminate_kwargs)
 
 
 def is_sequence(iterable: List or str) -> bool:
@@ -113,7 +158,11 @@ def is_in_package(filename: str) -> bool:
 def load_module(module_fullname: str,
                 module_path: Path or str,
                 module_root_path: str or List[str] = (),
-                immutable: bool = True) -> Tuple[types.ModuleType, List]:
+                immutable: bool = True,
+                callback_init: Callable = sys_context_callback_init,
+                callback_init_kwargs: Dict or None = None,
+                callback_terminate: Callable = sys_context_callback_terminate,
+                callback_terminate_kwargs: Dict or None = None) -> Tuple[types.ModuleType, List]:
     """
     Load a python module
 
@@ -122,6 +171,10 @@ def load_module(module_fullname: str,
     for module loading.
     :param module_path: path of the python module. It is safer to provide an absolute path.
     :param immutable: boolean flag to not permanently alter sys.path and sys.modules
+    :callback_init: callback function to be called right before the yield instruction
+    :callback_init_kwargs: keyword args dict for the callback_init call
+    :callback_terminate: callback function to be called after the yield instruction
+    :callback_terminate_kwargs: keyword args dict for the callback_init call
     :return: a tuple (module, added_modules) :
          - module : the effective loaded module
          - added_modules : list of modules added in the loading context. If immutable is True, those modules are
@@ -171,7 +224,13 @@ def load_module(module_fullname: str,
     # if immutable is True : sys.path and sys.module will be restored to their previous state and no reference of the
     # newly loaded module will be done in these variables
     added_modules = []
-    with sys_path_context(module_root_path, modules_changes=added_modules, immutable=immutable):
+    with sys_context(module_root_path,
+                     modules_changes=added_modules,
+                     immutable=immutable,
+                     callback_init=callback_init,
+                     callback_init_kwargs=callback_init_kwargs,
+                     callback_terminate=callback_terminate,
+                     callback_terminate_kwargs=callback_terminate_kwargs):
         spec = importlib_util.spec_from_file_location(module_fullname, module_path)
         module = importlib_util.module_from_spec(spec)
         spec.loader.exec_module(module)

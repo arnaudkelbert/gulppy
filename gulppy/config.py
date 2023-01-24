@@ -9,7 +9,7 @@ import inspect
 GULPPY_ROOT_PATH = os.path.normpath(os.path.join(os.path.abspath(inspect.stack()[0][1]), '..'))
 
 # Set a variable to store path to implicitly add at module loading
-# @see glpp_module_loader.sys_path_context
+# @see glpp_module_loader.sys_context
 GLPP_SYS_PATH = []
 
 def register_path(path: str):

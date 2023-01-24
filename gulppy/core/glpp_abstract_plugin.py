@@ -9,7 +9,7 @@ from typing import NoReturn
 import types
 import pandas as pd
 from enum import Enum
-from gulppy.core import glpp_exceptions
+from gulppy.core import glpp_exceptions, glpp_module_loader
 from gulppy.config import GLPP_LOGGER
 
 DESCR_FILENAME = 'descr.yaml'
@@ -71,6 +71,10 @@ class GlppAbstractPlugin(object, metaclass=ABCMeta):
         self.desc_main_modules = None
         self.python_path = None
         self.plugin_desc = plugin_desc
+        self.sys_context_callback_init = glpp_module_loader.sys_context_callback_init
+        self.sys_context_callback_terminate = glpp_module_loader.sys_context_callback_terminate
+        self.sys_context_callback_init_script = None
+        self.sys_context_callback_terminate_script = None
         self._modules = {}
         self._i_modules = {}
         self._introspect()
@@ -166,6 +170,7 @@ class GlppAbstractPlugin(object, metaclass=ABCMeta):
         Introspection from yaml plugin description file
         :return: None
         """
+        self.plugin_root = Path(self._plugin_desc).resolve().parent
         with open(Path(self._plugin_desc).resolve()) as fp:
             parsed = yaml.load(fp, Loader=yaml.FullLoader)
             self.name = parsed['plugin_name']
@@ -173,12 +178,45 @@ class GlppAbstractPlugin(object, metaclass=ABCMeta):
             self.desc_main_modules = parsed['plugin_main_modules']
             self.python_path = [safe_python_path(path=cpath, root=Path(self.plugin_desc).resolve().parent)
                                 for cpath in parsed['python_path']]
+            try:
+                self.sys_context_callback_init_script = parsed["plugin_hacks"]["sys_context_callback_init"]
+            except KeyError:
+                self.sys_context_callback_init_script = None
+            else:
+                GLPP_LOGGER.debug("A hack is defined for sys_context_callback_init")
+            try:
+                self.sys_context_callback_terminate_script = parsed["plugin_hacks"]["sys_context_callback_terminate"]
+            except KeyError:
+                self.sys_context_callback_terminate_script = None
+            else:
+                GLPP_LOGGER.debug("A hack is defined for sys_context_callback_terminate")
+
+    def get_path(self, path: str or Path) -> Path:
+        """
+        This return a path with variables changes
+        """
+        return Path(str(path).replace("@PLUGIN_ROOT@", str(self.plugin_root)))
 
     def load(self):
         """
         This method wraps the call of _load abstract method
         :return:
         """
+        # We set here the sys_context hacks if defined
+        if self.sys_context_callback_init_script is not None:
+            sys_context_callback_init_script = self.get_path(path=self.sys_context_callback_init_script)
+            with open(sys_context_callback_init_script, 'rb') as fp:
+                c_locals = {}
+                exec(compile(fp.read(), sys_context_callback_init_script, 'exec'), globals(), c_locals)
+                self.sys_context_callback_init = c_locals['sys_context_callback_init']
+
+        if self.sys_context_callback_terminate_script is not None:
+            sys_context_callback_terminate_script = self.get_path(path=self.sys_context_callback_terminate_script)
+            with open(sys_context_callback_terminate_script, 'rb') as fp:
+                c_locals = {}
+                exec(compile(fp.read(), sys_context_callback_terminate_script, 'exec'), globals(), c_locals)
+                self.sys_context_callback_terminate = c_locals['sys_context_callback_terminate']
+
         try:
             self._load()
         except glpp_exceptions.ModuleAlreadyExistsError as e:
